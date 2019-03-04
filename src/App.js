@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import axios from "axios";
+import { unsplash } from "./services/unsplash";
 import Card from "./components/Card/Card";
 
 class App extends Component {
@@ -11,14 +11,7 @@ class App extends Component {
     //fetch data from unsplash and set to state
     try {
       const searchTerm = "trees";
-      const response = await axios.get(
-        `https://api.unsplash.com/search/photos?query=${searchTerm}`,
-        {
-          headers: {
-            Authorization: `Client-ID ${process.env.REACT_APP_API_KEY}`
-          }
-        }
-      );
+      const response = await unsplash.get(`search/photos?query=${searchTerm}`);
 
       const data = response.data;
       this.setState({ resultList: data.results });
